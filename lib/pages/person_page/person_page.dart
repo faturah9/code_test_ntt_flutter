@@ -1,4 +1,5 @@
 import 'package:faturcodetestnttflutter/bloc/get_persons_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/person_model/person.dart';
 import 'package:faturcodetestnttflutter/model/person_model/person_response.dart';
 import 'package:faturcodetestnttflutter/pages/person_page/detail_person_page.dart';
@@ -17,7 +18,7 @@ class _PersonPageState extends State<PersonPage> {
   @override
   void initState() {
     super.initState();
-    personsBloc.getPersons();
+    sl<PersonsListBloc>().getPersons();
   }
 
   @override
@@ -39,7 +40,7 @@ class _PersonPageState extends State<PersonPage> {
           height: 5.0,
         ),
         StreamBuilder<PersonResponse>(
-          stream: personsBloc.subject.stream,
+          stream: sl<PersonsListBloc>().subject.stream,
           builder: (context, AsyncSnapshot<PersonResponse> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.error.isNotEmpty) {

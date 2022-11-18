@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:faturcodetestnttflutter/bloc/get_movie_similar_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie_response.dart';
 import 'package:faturcodetestnttflutter/pages/movie_genre_page/detail_screen.dart';
@@ -21,12 +22,13 @@ class _SimilarMoviesState extends State<SimilarMovies> {
   @override
   void initState() {
     super.initState();
-    similarMoviesBloc.getSimilarMovies(id);
+    sl<SimilarMoviesBloc>().getSimilarMovies(id);
+    // similarMoviesBloc.getSimilarMovies(id);
   }
 
   @override
   void dispose() {
-    similarMoviesBloc.drainStream();
+    sl<SimilarMoviesBloc>().drainStream();
     super.dispose();
   }
 
@@ -49,7 +51,7 @@ class _SimilarMoviesState extends State<SimilarMovies> {
           height: 5.0,
         ),
         StreamBuilder<MovieResponse>(
-          stream: similarMoviesBloc.subject.stream,
+          stream: sl<SimilarMoviesBloc>().subject.stream,
           builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.error.isNotEmpty) {

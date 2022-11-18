@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:faturcodetestnttflutter/bloc/get_movie_videos_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie.dart';
 import 'package:faturcodetestnttflutter/model/video_model/video.dart';
 import 'package:faturcodetestnttflutter/model/video_model/video_response.dart';
@@ -27,13 +28,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   void initState() {
     super.initState();
-    movieVideosBloc.getMovieVideos(widget.movie!.id);
+    sl<MovieVideosBloc>().getMovieVideos(widget.movie!.id);
   }
 
   @override
   void dispose() {
     super.dispose();
-    movieVideosBloc.drainStream();
+    sl<MovieVideosBloc>().drainStream();
   }
 
   @override
@@ -46,7 +47,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             topScalingEdge: 96.0,
             floatingPosition: const FloatingPosition(right: 20),
             floatingWidget: StreamBuilder<VideoResponse>(
-              stream: movieVideosBloc.subject.stream,
+              stream: sl<MovieVideosBloc>().subject.stream,
               builder: (context, AsyncSnapshot<VideoResponse> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!.error.isNotEmpty) {

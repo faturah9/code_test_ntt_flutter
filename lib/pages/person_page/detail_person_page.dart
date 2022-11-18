@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:faturcodetestnttflutter/bloc/get_movie_videos_bloc.dart';
 import 'package:faturcodetestnttflutter/bloc/get_persons_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/person_model/person.dart';
 import 'package:faturcodetestnttflutter/model/video_model/video_response.dart';
 import 'package:faturcodetestnttflutter/pages/movie_genre_page/sliver_fab.page.dart';
@@ -21,13 +22,13 @@ class _DetailPersonPageState extends State<DetailPersonPage> {
   @override
   void initState() {
     super.initState();
-    personsBloc.getPersons();
+    sl<PersonsListBloc>().getPersons();
   }
 
   @override
   void dispose() {
     super.dispose();
-    personsBloc.drainStream();
+    sl<PersonsListBloc>().drainStream();
   }
 
   @override
@@ -40,7 +41,7 @@ class _DetailPersonPageState extends State<DetailPersonPage> {
             topScalingEdge: 96.0,
             floatingPosition: const FloatingPosition(right: 20),
             floatingWidget: StreamBuilder<VideoResponse>(
-              stream: movieVideosBloc.subject.stream,
+              stream: sl<MovieVideosBloc>().subject.stream,
               builder: (context, AsyncSnapshot<VideoResponse> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data!.error.isNotEmpty) {

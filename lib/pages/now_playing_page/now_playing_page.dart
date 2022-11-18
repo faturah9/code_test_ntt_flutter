@@ -1,4 +1,5 @@
 import 'package:faturcodetestnttflutter/bloc/get_now_playing_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie_response.dart';
 import 'package:faturcodetestnttflutter/pages/now_playing_page/widget/build_error_widget.dart';
 import 'package:faturcodetestnttflutter/pages/now_playing_page/widget/build_home_widget.dart';
@@ -16,13 +17,13 @@ class _NowPlayingPageState extends State<NowPlayingPage> {
   @override
   void initState() {
     super.initState();
-    nowPlayingMoviesBloc.getMovies();
+    sl<NowPlayingListBloc>().getMovies();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<MovieResponse>(
-      stream: nowPlayingMoviesBloc.subject.stream,
+      stream: sl<NowPlayingListBloc>().subject.stream,
       builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data!.error.isNotEmpty) {

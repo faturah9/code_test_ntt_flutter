@@ -13,12 +13,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    // sl<CourseCubit>().getListCourse();
-    super.initState();
-  }
-
   bool isDescending = false;
 
   @override

@@ -9,7 +9,7 @@ class PersonsListBloc {
       BehaviorSubject<PersonResponse>();
 
   getPersons() async {
-    PersonResponse? response = await _repository.getPersons();
+    PersonResponse response = await _repository.getPersons();
     _subject.sink.add(response);
     if (kDebugMode) {
       print(response);

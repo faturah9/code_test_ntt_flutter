@@ -7,8 +7,8 @@ class CompanyModel {
   CompanyModel(this.id, this.logo, this.name, this.country);
 
   CompanyModel.fromJson(Map<String, dynamic> json)
-      : id = json["id"],
-        logo = json["logo_path"],
-        name = json["name"],
-        country = json["origin_country"];
+      : id = json["id"] ?? 0,
+        logo = json["logo_path"] ?? "",
+        name = json["name"] ?? "",
+        country = json["origin_country"] ?? "";
 }

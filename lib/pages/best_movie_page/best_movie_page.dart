@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:faturcodetestnttflutter/bloc/get_movies_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie_response.dart';
 import 'package:faturcodetestnttflutter/pages/movie_genre_page/detail_screen.dart';
@@ -19,7 +20,7 @@ class _BestMoviePageState extends State<BestMoviePage> {
   @override
   void initState() {
     super.initState();
-    moviesBloc.getMovies();
+    sl<MoviesListBloc>().getMovies();
   }
 
   @override
@@ -41,7 +42,7 @@ class _BestMoviePageState extends State<BestMoviePage> {
           height: 5.0,
         ),
         StreamBuilder<MovieResponse>(
-          stream: moviesBloc.subject.stream,
+          stream: sl<MoviesListBloc>().subject.stream,
           builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.error.isNotEmpty) {

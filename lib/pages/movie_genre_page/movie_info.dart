@@ -1,4 +1,5 @@
 import 'package:faturcodetestnttflutter/bloc/get_movie_detail_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie_detail.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie_detail_response.dart';
 import 'package:faturcodetestnttflutter/style/theme.dart' as Style;
@@ -12,18 +13,18 @@ class MovieInfo extends StatefulWidget {
 }
 
 class _MovieInfoState extends State<MovieInfo> {
-  final int id;
+  final int? id;
   _MovieInfoState(this.id);
   @override
   void initState() {
     super.initState();
-    movieDetailBloc.getMovieDetail(id);
+    sl<MovieDetailBloc>().getMovieDetail(widget.id);
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<MovieDetailResponse>(
-      stream: movieDetailBloc.subject.stream,
+      stream: sl<MovieDetailBloc>().subject.stream,
       builder: (context, AsyncSnapshot<MovieDetailResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data!.error.isNotEmpty) {

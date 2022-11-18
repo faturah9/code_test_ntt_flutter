@@ -1,4 +1,5 @@
 import 'package:faturcodetestnttflutter/bloc/get_casts_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/cast_model/cast.dart';
 import 'package:faturcodetestnttflutter/model/cast_model/cast_response.dart';
 import 'package:faturcodetestnttflutter/style/theme.dart' as Style;
@@ -7,23 +8,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Casts extends StatefulWidget {
   final int? id;
-  Casts({Key? key, required this.id}) : super(key: key);
+  const Casts({Key? key, required this.id}) : super(key: key);
   @override
-  _CastsState createState() => _CastsState(id);
+  _CastsState createState() => _CastsState();
 }
 
 class _CastsState extends State<Casts> {
-  final int? id;
-  _CastsState(this.id);
   @override
   void initState() {
     super.initState();
-    castsBloc.getCasts(id!);
+    sl<CastsBloc>().getCasts(widget.id!);
   }
 
   @override
   void dispose() {
-    castsBloc.drainStream();
+    sl<CastsBloc>().drainStream();
     super.dispose();
   }
 
@@ -46,7 +45,7 @@ class _CastsState extends State<Casts> {
           height: 5.0,
         ),
         StreamBuilder<CastResponse>(
-          stream: castsBloc.subject.stream,
+          stream: sl<CastsBloc>().subject.stream,
           builder: (context, AsyncSnapshot<CastResponse> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.error.isNotEmpty) {
@@ -123,15 +122,7 @@ class _CastsState extends State<Casts> {
               padding: const EdgeInsets.only(top: 10.0, right: 8.0),
               width: 100.0,
               child: GestureDetector(
-                onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) =>
-                  //         DetailPersonPage(person: casts[index]),
-                  //   ),
-                  // );
-                },
+                onTap: () {},
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -145,7 +136,7 @@ class _CastsState extends State<Casts> {
                                   shape: BoxShape.circle,
                                   color: Style.Colors.secondColor),
                               child: const Icon(
-                                FontAwesomeIcons.userAlt,
+                                FontAwesomeIcons.userLarge,
                                 color: Colors.white,
                               ),
                             ),

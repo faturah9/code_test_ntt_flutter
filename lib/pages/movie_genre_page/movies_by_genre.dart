@@ -1,5 +1,6 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:faturcodetestnttflutter/bloc/get_movies_byGenre_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie.dart';
 import 'package:faturcodetestnttflutter/model/movie_model/movie_response.dart';
 import 'package:faturcodetestnttflutter/pages/movie_genre_page/detail_screen.dart';
@@ -21,13 +22,13 @@ class _GenreMoviesState extends State<GenreMovies> {
   @override
   void initState() {
     super.initState();
-    moviesByGenreBloc.getMoviesByGenre(genreId);
+    sl<MoviesListByGenreBloc>().getMoviesByGenre(genreId);
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<MovieResponse>(
-      stream: moviesByGenreBloc.subject.stream,
+      stream: sl<MoviesListByGenreBloc>().subject.stream,
       builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data!.error.isNotEmpty) {

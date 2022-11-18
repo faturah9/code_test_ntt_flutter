@@ -1,4 +1,5 @@
 import 'package:faturcodetestnttflutter/bloc/get_genres_bloc.dart';
+import 'package:faturcodetestnttflutter/injection_container.dart';
 import 'package:faturcodetestnttflutter/model/genre_model/genre.dart';
 import 'package:faturcodetestnttflutter/model/genre_model/genre_response.dart';
 import 'package:faturcodetestnttflutter/pages/genres_page/widget/genres_list.dart';
@@ -15,13 +16,13 @@ class _GenresPageState extends State<GenresPage> {
   @override
   void initState() {
     super.initState();
-    genresBloc.getGenres();
+    sl<GenresListBloc>().getGenres();
   }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<GenreResponse>(
-      stream: genresBloc.subject.stream,
+      stream: sl<GenresListBloc>().subject.stream,
       builder: (context, AsyncSnapshot<GenreResponse> snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data!.error.isNotEmpty) {
